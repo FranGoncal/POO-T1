@@ -3,84 +3,85 @@ package tiu.core;
 import java.util.ArrayList;
 
 /**
- * Classe que representa um utente do sistema
- * Um utente tem um user name e o seu nome, 
- * se tem algum aluguer no momento e uma lista
- * dos alugueres todos que já realizou. 
+ * Classe que representa um utente do sistema Um utente tem um user name e o seu
+ * nome, se tem algum aluguer no momento e uma lista dos alugueres todos que já
+ * realizou.
  * 
  */
 public class Utente {
-	
-	private String userName;
+
+	private String userName; // Tem de ser unico no sistema
 	private String nome;
-	private boolean aluguer;
+	// private boolean aluguer;
+	private Aluguer aluguer;
 	private ArrayList<Aluguer> alugueres = new ArrayList<Aluguer>();
-	
-	public Utente(String userName, String nome, boolean aluguer) {
+
+	public Utente(String userName, String nome) {
 		this.userName = userName;
 		this.nome = nome;
-		this.aluguer = aluguer;
+		this.aluguer = null;
 	}
-	
-	
-	
-	public String getUserName() {
+
+	public String getUserName() { // +-done
 		return userName;
 	}
 
-
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-
-
-	public String getNome() {
+	public String getNome() { // +-done
 		return nome;
 	}
 
-
-
-	public void setNome(String nome) {
+	public void setNome(String nome) { // não sei se necessario
 		this.nome = nome;
 	}
+	// public boolean isAluguer() {
+	// return aluguer;
+	// }
 
-
-
-	public boolean isAluguer() {
-		return aluguer;
-	}
-
-
-
-	public void setAluguer(boolean aluguer) {
-		this.aluguer = aluguer;
-	}
-
-
-
-	public ArrayList<Aluguer> getAlugueres() {
+	public ArrayList<Aluguer> getAlugueres() { // não sei se necessario
 		return alugueres;
 	}
 
-	/** O utente começou um novo aluguer. Só deve aceitar
-	 * se não tiver nenhum aluguer atualmente, caso contrário
-	 * deve ignorar o novo aluguer
+	public void addAlugueres(Aluguer aluguer) {
+		alugueres.add(aluguer);
+	}
+
+	/**
+	 * O utente começou um novo aluguer. Só deve aceitar se não tiver nenhum aluguer
+	 * atualmente, caso contrário deve ignorar o novo aluguer
+	 * 
 	 * @param alu o aluguer começado
 	 */
-	public void comecaAluguer(Aluguer alu) {
+	public void comecaAluguer(Aluguer alu) { // +-done
+		if (this.aluguer == null)
+			this.aluguer = alu;
 	}
-	
-	/** Termina o aluguer atual.
+
+	/**
+	 * Termina o aluguer atual.
 	 */
-	public void terminaAluguer() {
+	public void terminaAluguer(Aluguer alu) { // +-done
+		if (this.aluguer != null)
+			this.aluguer = null;
+			this.addAlugueres(alu);
 	}
-	
-	/** indica se está atualmente a alugar alguma trotinete
+
+	/**
+	 * indica se está atualmente a alugar alguma trotinete
+	 * 
 	 * @return true se está a alugar, false caso contrário
 	 */
-	public boolean estaAlugar() {
-		return false;
+	public boolean estaAlugar() { // +-done
+		return this.aluguer == null;
 	}
+
+	public void setAluguer(Aluguer aluguer) { // +-done
+		this.aluguer = aluguer;
+	}
+
+	@Override
+	public String toString() { // +-done
+		return "Utente:\nuserName = " + userName + "\nnome = " + nome + "\naluguer = " + aluguer + "\nalugueres = "
+				+ alugueres;
+	}
+
 }

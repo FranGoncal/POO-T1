@@ -1,5 +1,4 @@
 package tiu.core;
-
 /** Representa a central de controlo do sistema.
  * Deve ter todos os utentes e todas as trotinetes
  * bem como gerir os vários alugueres
@@ -26,6 +25,13 @@ public class CentralTIU {
 	 * <br>UTENTE_EM_ALUGUER, se o utente já está a alugar outra trotinete
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
+		//Aluguer a1 = new Aluguer( codigo, utente);									//cria um aluguer entre o utente e o codigo da trotinete
+	//	utente.comecaAluguer(a1);													//inicia aluguer
+		
+		
+		
+		
+		
 		return OK;
 	}
 	
