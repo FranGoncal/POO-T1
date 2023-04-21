@@ -8,6 +8,7 @@ import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -45,7 +46,7 @@ public class JanelaUtente extends JDialog {
 	 */
 	public JanelaUtente( JFrame owner, CentralTIU c, Utente u ) throws HeadlessException {
 		// TODO substituir "NOME DO UTILIZADOR" pelo valor correto
-		super( owner, "NOME DO UTILIZADOR" );
+		super( owner, u.getNome() );
 		central = c;
 		utente = u;
 		setupInterface();
@@ -110,8 +111,8 @@ public class JanelaUtente extends JDialog {
 	 */
 	protected void atualizarDisplay() {
 		// TODO preencher as variáveis com os dados corretos
-		Duration duracao = null;
-		float custo = 0;
+		Duration duracao = utente.getAluguer().getDuracao(LocalDateTime.now());
+		float custo = utente.getAluguer().getCusto();
 		
 		// atualizar a interface
 		atualizarTempo( duracao.toHoursPart(), duracao.toMinutesPart(), duracao.toSecondsPart() );

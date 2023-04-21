@@ -1,8 +1,7 @@
 package tiu.mobilidade;
 
-import java.util.HashMap;
 import java.util.ArrayList;
-import tiu.core.Aluguer;
+import tiu.core.*;
 
 /**
  * Classe que representa uma trotinete
@@ -14,12 +13,13 @@ import tiu.core.Aluguer;
  * 
  */
 public class Trotinete {
-
+	private String codigo;
+	private Aluguer aluguer;
 	private boolean emAluguer;
 	private boolean indisponivel;										//n sei se necessario
 	private boolean emAndamento;
 	private boolean carga;												//n sei se necessario
-	private ArrayList<Aluguer> alugueres = new ArrayList<Aluguer>();
+	public ArrayList<Aluguer> alugueres = new ArrayList<Aluguer>();
 	private int autonomia;
 	private int	autonomiaRestante;
 	private int velocidade;
@@ -28,9 +28,10 @@ public class Trotinete {
 	private int CONSTANTE = 100;
 
 
-	public Trotinete( int autonomia, int velocidade) {
-	
-		this.emAluguer = true;
+	public Trotinete(String codigo ,int autonomia, int velocidade) {
+		this.codigo = codigo;
+		this.emAluguer = false;
+		this.aluguer = null;
 		this.indisponivel = false;
 		this.emAndamento = false;
 		this.autonomia = autonomia;
@@ -86,7 +87,9 @@ public class Trotinete {
 	 * @param alu o aluguer a começar
 	 */
 	public void iniciaAluguer(Aluguer alu) {
-		setEmAluguer(true);
+//		setEmAluguer(true);
+		if (this.aluguer == null)																		//criamos um aluguer no caso de ainda n ter
+			this.aluguer = alu;
 	}
 
 	/** termina o aluguer atual
@@ -101,6 +104,7 @@ public class Trotinete {
 	 */
 	public void mover() {
 		this.emAndamento=true;
+		System.out.println("mover");
 	}
 
 	/** Pára a trotinete
@@ -121,7 +125,18 @@ public class Trotinete {
 	 * @return se a trotinete está em uso
 	 */
 	public boolean emUso() {
-		return this.emAluguer;
+		if(this.aluguer==null)
+			return false;
+		else 
+			return true;
+	}
+
+	public Aluguer getAluguer() {
+		return aluguer;
+	}
+
+	public void setAluguer(Aluguer aluguer) {
+		this.aluguer = aluguer;
 	}
 
 	/** indica se a trotinete está em carga
@@ -139,10 +154,15 @@ public class Trotinete {
 	 */
 
 	public void atualizar() {
+		System.out.println("update ");
+		System.out.println("Trot em andamento " + this.emAndamento);
 		if(this.emAndamento) {
+			System.out.println("if anda ");
 			this.autonomiaRestante-=this.velocidade;
 			this.distanciaAluguer+=this.velocidade;
+		
 		}
+		
 		if(this.carga) {
 			this.autonomiaRestante+=this.CONSTANTE;
 			if(this.autonomiaRestante>=this.autonomia) {
@@ -189,7 +209,7 @@ public class Trotinete {
 	 * @return se a trotinete está indisponível
 	 */
 	public boolean estaIndisponivel() {
-		if (this.autonomiaRestante<this.autonomia)
+		if (this.autonomiaRestante< 500)
 			this.indisponivel=true;
 		return this.indisponivel;
 	}

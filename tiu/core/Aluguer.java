@@ -14,6 +14,7 @@ import tiu.core.Utente;
  */
 public class Aluguer {
 	LocalDateTime inicio;
+	LocalDateTime fim;
 	Trotinete trotinete;
 	Utente utente;
 	Duration duracao;
@@ -22,9 +23,10 @@ public class Aluguer {
 
 	float PrecoInicial = 0.5f;
 
-	public Aluguer( String codigo, Utente utente) {
+	public Aluguer( Utente utente,Trotinete trotinete) {
 
 		this.inicio =  LocalDateTime.now();
+		this.fim = null;
 		this.trotinete = trotinete;									//trotinete cujo codigo é codigo
 		this.utente = utente;
 		this.distancia = 0;
@@ -48,8 +50,8 @@ public class Aluguer {
 		getDuracao(LocalDateTime.now());
 		getCusto();
 	}
-	
-	
+
+
 	/** Indica a duração do aluguer. Se o aluguer já
 	 * tiver terminado, retorna a duração total do aluguer.
 	 * Se o aluguer ainda estiver a decorrer, deve retornar
@@ -58,7 +60,7 @@ public class Aluguer {
 	 * @return a duração do aluguer
 	 */
 	public Duration getDuracao( LocalDateTime toDateTime) {
-        duracao = Duration.between(inicio, toDateTime);
+		duracao = Duration.between(inicio, toDateTime);
 		return duracao;
 	}
 
@@ -69,29 +71,36 @@ public class Aluguer {
 	 */
 	public float getCusto() {
 		//fazer a diferença em segundos das duracoes
+		duracao = this.getDuracao(LocalDateTime.now());
+		double tempo =duracao.toSeconds();
+		double divisor = tempo/60;
+		divisor =  Math.ceil(divisor);
+		custo = PrecoInicial;
+		custo += divisor*0.15;
 		
-		return 0;
+		return custo;
 	}
-//	public void setCusto(int tempo) {
-//		int precoTempo = tempo;
-//		this.custo=PrecoInicial+precoTempo;
-//	}
-	
-	
-	
-	
+	//	public void setCusto(int tempo) {
+	//		int precoTempo = tempo;
+	//		this.custo=PrecoInicial+precoTempo;
+	//	}
+
+
+
+
 	/** retorna a distância percorrida durante o aluguer
 	 * Se o aluguer ainda estiver a decorrer, retorna a
 	 * distância que foi percorrida até ao momento. 
 	 * @return a distância percorrida durante o aluguer
 	 */
 	public int getDistancia() {
-		return 0;
+		return trotinete.getDistanciaAluguer();
+
 	}
-	
-//	public Trotinete getTrotinete(String codigo) {
-//		for (Trotinete t : Trotinetes)
-//		if(trotinete.getCodigo()==codigo)
-//			return trotinete;
-//	}
+
+	//	public Trotinete getTrotinete(String codigo) {
+	//		for (Trotinete t : Trotinetes)
+	//		if(trotinete.getCodigo()==codigo)
+	//			return trotinete;
+	//	}
 }

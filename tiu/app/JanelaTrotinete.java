@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -35,17 +36,17 @@ public class JanelaTrotinete extends JDialog {
 	private JButton btMover;
 	private static final String INATIVO = "Inativo";
 	private static final String EM_USO = "EmUso";
-	
-	
+
+
 	/** Cria uma janela que simula uma trotinete
 	 * @param owner janela principal
 	 * @param t trotinete simulada pela janela
 	 */
 	public JanelaTrotinete( JFrame owner, Trotinete t ) {
-		// TODO substituir "CÒDIGO TROTI" pelo valor correto
-		super( owner, "CODIGO TROTI" );
+		// TODO +- feito substituir "CÒDIGO TROTI" pelo valor correto
+		super( owner, t.getCodigo() );
 		trot = t;
-		setupInterface( "CODIGO TROTE" );
+		setupInterface( t.getCodigo() );
 	}
 
 	/** Método chamado quando é necessário atualizar
@@ -54,17 +55,23 @@ public class JanelaTrotinete extends JDialog {
 	public void atualizarInterface( ) {
 		// chamar o método que simula a trotinete
 		trot.atualizar();
-		
+
 		if( trot.emUso() ) {
+
 			// se agora está em uso, mas antes não estava
 			// é preciso mudar o aspeto da interface
 			if( !emUso )
 				mudaParaEmUso();
-			
-			// TODO preencher as variáveis com os dados corretos
-			Duration duracao = null;
-			int distanciaPercorrida = 0; 
-			int autonomiaRestante = 8500;
+
+			// TODO +- feito preencher as variáveis com os dados corretos
+			Duration duracao = (trot.getAluguer().getDuracao(LocalDateTime.now()));
+			int distanciaPercorrida = trot.getDistanciaAluguer(); 
+			int autonomiaRestante = trot.getAutonomiaRestante();
+
+			System.out.println("duracao"+duracao);
+			System.out.println("distanciaPercorrida"+distanciaPercorrida);
+			System.out.println("distanciaPercorrida"+autonomiaRestante);
+
 
 			// atualiza a interface
 			atualizarTempo( duracao.toHoursPart(), duracao.toMinutesPart(), duracao.toSecondsPart() );
@@ -73,21 +80,24 @@ public class JanelaTrotinete extends JDialog {
 		else if( emUso )
 			mudaParaInativo();
 	}
-	
+
 	/** método chamado quando o botão mover/parar é premido
 	 */
 	protected void processarMover() {
 		// TODO se está em andamento tem de parar e mudar o nome do botão
-		if( Math.abs( 2 ) == 2 ) {
+		if( trot.emAndamento() ) {
 			// ...
+			trot.parar();
 			btMover.setText( "Mover" );
 		} else {
-		// TODO senão é porque tem de se colocar em andamento 
+			// TODO senão é porque tem de se colocar em andamento 
 			// ...
+			trot.mover();
 			btMover.setText( "Parar" );
+
 		}			
 	}
-	
+
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
@@ -101,7 +111,7 @@ public class JanelaTrotinete extends JDialog {
 	protected void atualizarTempo( int horas, int minutos, int segundos ) {
 		tempoLbl.setText( String.format("%02d:%02d:%02d", horas, minutos, segundos));
 	}
-	
+
 	/** atualiza na interface as distâncias
 	 * @param dist distância percorrida
 	 * @param auto autonomia restante
@@ -128,24 +138,25 @@ public class JanelaTrotinete extends JDialog {
 		cl.show( cpane, INATIVO);
 		emUso = false;
 	}
-	
+
 	/** inicializa a interface da janela
 	 */
 	private void setupInterface( String codigo ) {
 		setSize( 150, 150 );
 		setResizable( false );
 		JPanel inativoPanel = setupInterfaceInativo( codigo );	
-		
+
 		JPanel emUsoPanel = setupInterfaceEmUSo();
-		
+
 		JPanel cardPanel = new JPanel( new CardLayout() );
 		cardPanel.add( inativoPanel, INATIVO );
 		cardPanel.add( emUsoPanel, EM_USO);
 		setContentPane(cardPanel);
-		
+
 		timer = new Timer( 1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				atualizarInterface();				
 			}
 		});
@@ -157,7 +168,7 @@ public class JanelaTrotinete extends JDialog {
 		inativoPanel.add( new JLabel("<html><center>Desbloqueie<br>usando<br> " + codigo + "</html>", JLabel.CENTER) );
 		return inativoPanel;
 	}
-	
+
 	private JPanel setupInterfaceEmUSo() {
 		JPanel emUsoPanel = new JPanel( new GridLayout( 0, 1) );
 		tempoLbl = new JLabel("00:00:00", JLabel.CENTER );
@@ -183,7 +194,7 @@ public class JanelaTrotinete extends JDialog {
 		return emUsoPanel;
 	}
 
-	
+
 
 }
 

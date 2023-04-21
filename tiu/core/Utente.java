@@ -22,6 +22,7 @@ public class Utente {
 		this.aluguer = null;
 	}
 
+
 	public String getUserName() { // +-done
 		return userName;
 	}
@@ -44,6 +45,12 @@ public class Utente {
 	public void addAlugueres(Aluguer aluguer) {
 		alugueres.add(aluguer);
 	}
+	
+
+	public Aluguer getAluguer() {
+		return aluguer;
+	}
+
 
 	/**
 	 * O utente começou um novo aluguer. Só deve aceitar se não tiver nenhum aluguer
@@ -60,9 +67,13 @@ public class Utente {
 	 * Termina o aluguer atual.
 	 */
 	public void terminaAluguer(Aluguer alu) { // +-done
-		if (this.aluguer != null)
-			this.aluguer = null;
+
+		if (this.aluguer != null) {
 			this.addAlugueres(alu);
+			this.aluguer = null;
+		}
+
+
 	}
 
 	/**
@@ -81,7 +92,7 @@ public class Utente {
 	@Override
 	public String toString() { // +-done
 		return "Utente:\nuserName = " + userName + "\nnome = " + nome + "\naluguer = " + aluguer + "\nalugueres = "
-				+ alugueres;
+		+ alugueres;
 	}
 
 }
