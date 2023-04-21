@@ -1,10 +1,7 @@
 package tiu.mobilidade;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import tiu.core.Aluguer;
 
 /**
@@ -17,7 +14,7 @@ import tiu.core.Aluguer;
  * 
  */
 public class Trotinete {
-	private int codigo;
+
 	private boolean emAluguer;
 	private boolean indisponivel;										//n sei se necessario
 	private boolean emAndamento;
@@ -31,8 +28,8 @@ public class Trotinete {
 	private int CONSTANTE = 100;
 
 
-	public Trotinete(int codigo, int autonomia, int velocidade) {
-		this.codigo = codigo;
+	public Trotinete( int autonomia, int velocidade) {
+	
 		this.emAluguer = true;
 		this.indisponivel = false;
 		this.emAndamento = false;
@@ -48,6 +45,10 @@ public class Trotinete {
 	//		return emAluguer;
 	//	
 	//	}
+	
+	public void setAutonomiaRestante(int autonomiaRestante) {													//+- done
+		this.autonomiaRestante = autonomiaRestante;
+	}
 	public void setEmAluguer(boolean emAluguer) {													//+- done
 		this.emAluguer = emAluguer;
 	}
@@ -66,7 +67,7 @@ public class Trotinete {
 	//	public void setDistanciaAluguer(int distanciaAluguer) {											// Meio inutil por enquanto
 	//		this.distanciaAluguer = distanciaAluguer;
 	//	}
-	public int getCodigo() {																		//+- done
+	public String getCodigo() {																		//+- done
 		return codigo;
 	}
 	public ArrayList<Aluguer> getAlugueres() {

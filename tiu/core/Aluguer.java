@@ -43,9 +43,10 @@ public class Aluguer {
 	/** método responsável por terminar o aluguer
 	 */
 	public void terminar() {
-		utente.terminaAluguer();
+		utente.terminaAluguer(this);
 		trotinete.terminaAluguer();
 		getDuracao(LocalDateTime.now());
+		getCusto();
 	}
 	
 	

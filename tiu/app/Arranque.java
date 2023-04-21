@@ -1,6 +1,7 @@
 package tiu.app;
 
 import tiu.core.*;
+import tiu.mobilidade.*;
 
 /** Esta classe é responsável por criar os componentes do sistema,
  *  inicializar os dados com a configuração de teste e
@@ -9,6 +10,7 @@ import tiu.core.*;
 public class Arranque {
 	
 	public static void main(String[] args) {
+	
 		// criar a central e fazer o respetivo setup
 		CentralTIU central = setupSistema();
 
@@ -45,12 +47,28 @@ public class Arranque {
 	private static CentralTIU setupSistema() {
 		CentralTIU central = new CentralTIU();
 		
-		// TODO criar os utentes
+		// TODO FEITO criar os utentes
+		Utente fsergio = new Utente("fsergio@ipcb.pt","Sérgio Barbosa");
+		Utente jojo89 = new Utente("jojo89@g.com","João José Silva");
+		Utente codeguru = new Utente("codeguru@guru.com ","Harry Hacker");
+		Utente Luis = new Utente("luis@ipcbcampus.pt","Luis Santos");
+		Utente Francisco = new Utente("francisco@ipcbcampus.pt","Francisco Gomçalves");
+		// TODO FEITO criar as trotinetes
+		Trotinete PooTr1 = new Trotinete(20000, 5);
+		central.addTrotinetesMap("PooTr1", PooTr1);
+		Trotinete PooTr2 = new Trotinete(20000, 5);
+		central.addTrotinetesMap("PooTr2", PooTr2);
+		Trotinete PooGO = new Trotinete(30000, 6);
+		central.addTrotinetesMap("PooGO", PooGO);
+		Trotinete Poo20 = new Trotinete(30000, 7);
+		central.addTrotinetesMap("Poo20", Poo20);
+
+		// TODO FEITO configurar as autonomias restantes para as trotinetes
+		PooTr1.setAutonomiaRestante(400);
+		PooTr2.setAutonomiaRestante(20000);
+		PooGO.setAutonomiaRestante(8000);
+		Poo20.setAutonomiaRestante(30000);
 		
-		// TODO criar as trotinetes
-		
-		// TODO configurar as autonomias restantes para as trotinetes
-	
 		return central;
 	}
 }
