@@ -68,11 +68,6 @@ public class JanelaTrotinete extends JDialog {
 			int distanciaPercorrida = trot.getDistanciaAluguer(); 
 			int autonomiaRestante = trot.getAutonomiaRestante();
 
-			System.out.println("duracao"+duracao);
-			System.out.println("distanciaPercorrida"+distanciaPercorrida);
-			System.out.println("distanciaPercorrida"+autonomiaRestante);
-
-
 			// atualiza a interface
 			atualizarTempo( duracao.toHoursPart(), duracao.toMinutesPart(), duracao.toSecondsPart() );
 			atualizarDistancias( distanciaPercorrida, autonomiaRestante );

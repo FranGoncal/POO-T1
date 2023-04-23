@@ -155,8 +155,6 @@ public class Trotinete {
 	 */
 
 	public void atualizar() {
-		System.out.println("update ");
-		System.out.println("Trot em andamento " + this.emAndamento);
 		if(this.emAndamento && emUso()) {
 			System.out.println("if anda ");
 			this.autonomiaRestante-=this.velocidade;

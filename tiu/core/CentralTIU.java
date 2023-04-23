@@ -1,6 +1,7 @@
 package tiu.core;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import tiu.mobilidade.Trotinete;
 
@@ -21,16 +22,16 @@ public class CentralTIU {
 	public static final int TROTINETE_EM_CARGA = TROTINETE_EM_ANDAMENTO + 1;
 	public static final int TROTINETE_INDISPONIVEL = TROTINETE_EM_CARGA + 1;
 	public static final int UTENTE_EM_ALUGUER = TROTINETE_INDISPONIVEL + 1;
-	
+
 	public CentralTIU() {
 		this.trotinetesMap = new HashMap<String, Trotinete>();
 		this.utenteMap = new HashMap<String, Utente>();
 	}
-//	public CentralTIU(HashMap<String, Trotinete> trotinetesMap, HashMap<String, Utente> utenteMap) {
-//		this.trotinetesMap = trotinetesMap;
-//		this.utenteMap = utenteMap;
-//	}
-	
+	//	public CentralTIU(HashMap<String, Trotinete> trotinetesMap, HashMap<String, Utente> utenteMap) {
+	//		this.trotinetesMap = trotinetesMap;
+	//		this.utenteMap = utenteMap;
+	//	}
+
 	public void addTrotinetesMap(String codigo, Trotinete t) {
 		trotinetesMap.put(codigo, t);
 	}
@@ -46,7 +47,7 @@ public class CentralTIU {
 	public Trotinete getCodigo(String t) {
 		return this.trotinetesMap.get(t);
 	}
-	
+
 	public HashMap<String, Trotinete> getTrotinetesMap() {
 		return trotinetesMap;
 	}
@@ -63,7 +64,7 @@ public class CentralTIU {
 		this.utenteMap = utenteMap;
 	}
 
-	
+
 
 	/** Cria um novo aluguer para um cliente
 	 * @param utente o utente que pretende o aluguer
@@ -76,33 +77,42 @@ public class CentralTIU {
 	 * <br>UTENTE_EM_ALUGUER, se o utente já está a alugar outra trotinete
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
-		
-		
-		Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
-		
-		//this.getTrotinete(codigo).setEmCarga(false);
-		utente.comecaAluguer(a1);																		//inicia aluguer
-		this.getTrotinete(codigo).iniciaAluguer(a1);
-	
-		
-		
-		
-		return OK;
+
+		try {
+			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
+			
+			if(this.getTrotinete(codigo).emUso())
+				return TROTINETE_EM_USO;
+			if(this.getTrotinete(codigo).emCarga())
+				return TROTINETE_EM_CARGA;
+			if(this.getTrotinete(codigo).estaIndisponivel())
+				return TROTINETE_INDISPONIVEL;
+			if(utente.estaAlugar()) 
+				return UTENTE_EM_ALUGUER;
+			
+			utente.comecaAluguer(a1);																		//inicia aluguer
+			this.getTrotinete(codigo).iniciaAluguer(a1);
+			return OK;
+		}
+		catch(Exception e) {
+			return TROTINETE_DESCONHECIDA;
+		}
+
+
 	}
-	
+
 	/** Terminar um processo de aluguer
 	 * @param aluguer o aluguer a ser terminado
 	 * @return OK, se correu tudo bem
 	 * <br> TROTINETE_EM_ANDAMENTO se a trotinete ainda se encontrar em andamento
 	 */
 	public int terminarAluguer(Aluguer aluguer) {
-		aluguer.utente.terminaAluguer(aluguer);
-		aluguer.trotinete.terminaAluguer();
-		//aluguer.trotinete.setEmCarga(true);
+
+		if(aluguer.trotinete.emAndamento())
+			return TROTINETE_EM_ANDAMENTO;
 		
-		
-		
-		
+		aluguer.terminar();
 		return OK;
+
 	}	
 }

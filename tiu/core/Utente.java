@@ -82,7 +82,7 @@ public class Utente {
 	 * @return true se está a alugar, false caso contrário
 	 */
 	public boolean estaAlugar() { // +-done
-		return this.aluguer == null;
+		return this.aluguer != null;
 	}
 
 	public void setAluguer(Aluguer aluguer) { // +-done

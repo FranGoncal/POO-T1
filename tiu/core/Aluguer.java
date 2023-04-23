@@ -25,7 +25,7 @@ public class Aluguer {
 
 	public Aluguer( Utente utente,Trotinete trotinete) {
 
-		this.inicio =  LocalDateTime.now();
+		this.inicio = LocalDateTime.now();
 		this.fim = null;
 		this.trotinete = trotinete;									//trotinete cujo codigo é codigo
 		this.utente = utente;
@@ -41,17 +41,24 @@ public class Aluguer {
 		this.custo=PrecoInicial;
 	}
 
-
+	public Trotinete getTrotinete() {
+		return trotinete;
+	}
 	
 	public LocalDateTime getInicio() {
 		return inicio;
 	}
+	public LocalDateTime getFim() {
+		return fim;
+	}
 	/** método responsável por terminar o aluguer
 	 */
 	public void terminar() {
+		this.fim=LocalDateTime.now();
 		utente.terminaAluguer(this);
 		trotinete.terminaAluguer();
-		getDuracao(LocalDateTime.now());
+		getDuracao(fim);
+		
 		getCusto();
 	}
 

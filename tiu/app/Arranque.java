@@ -16,7 +16,7 @@ public class Arranque {
 
 		// criar a central e fazer o respetivo setup
 		CentralTIU central = setupSistema();
-
+		
 		// criar a janela principal
 		JanelaPrincipal jp = new JanelaPrincipal( central );
 		jp.setLocation( 20, 380 );
@@ -44,14 +44,14 @@ public class Arranque {
 
 
 		// TODO criar as janelas das trotinetes (criar uma por cada trotinete)
-//		i=0;
-//		for( int k = 0; k < 1; k++ ) {
-//			// TODO cuidado com o null, substituir pelo valor correto
-//			JanelaTrotinete jt = new JanelaTrotinete( jp, central.getTrotinete("PooTr1")) ;
-//			jt.setLocation( 20 + i*(jt.getWidth()+10), 200);
-//			jt.setVisible( true );
-//			i++;
-//		}	
+		//		i=0;
+		//		for( int k = 0; k < 1; k++ ) {
+		//			// TODO cuidado com o null, substituir pelo valor correto
+		//			JanelaTrotinete jt = new JanelaTrotinete( jp, central.getTrotinete("PooTr1")) ;
+		//			jt.setLocation( 20 + i*(jt.getWidth()+10), 200);
+		//			jt.setVisible( true );
+		//			i++;
+		//		}	
 
 		i=0;
 		HashMap<String, Trotinete> trotineteMap = central.getTrotinetesMap();											//Obter o mapa das trotinetes da central

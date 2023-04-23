@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -84,9 +85,8 @@ public class JanelaPrincipal extends JFrame {
 			else
 				atualizarInativa( t );
 		}
-
 		// se houver um utente selecionado, atualizar a sua informação 
-		if( utenteSel != null ) 
+		if( utenteSel != null )
 			atualizarInfoUtenteSel( );
 	}
 
@@ -152,9 +152,9 @@ public class JanelaPrincipal extends JFrame {
 	 * @param u o utente a ser atualizado
 	 */
 	private void atualizarUtente(Utente u) {
-		// TODO preencher as variáveis com os dados corretos
-		String user = "user name";
-		String nome = "nome completo";
+		// TODO Feito preencher as variáveis com os dados corretos
+		String user = u.getUserName();
+		String nome = u.getNome();
 
 		// atualizar a interface
 		Object data[] = {user, nome };
@@ -166,9 +166,9 @@ public class JanelaPrincipal extends JFrame {
 	 * a informação do utente que está atualmente selecionado
 	 */
 	private void atualizarInfoUtenteSel() {
-		// TODO preencher as variáveis com os dados corretos
-		String userName = "user name";
-		String nome = "nome completo";
+		// TODO Feito preencher as variáveis com os dados corretos
+		String userName = utenteSel.getUserName();
+		String nome = utenteSel.getNome();
 
 		// atualizar a interface
 		modeloAlugueres.setRowCount( 0 );
@@ -176,16 +176,22 @@ public class JanelaPrincipal extends JFrame {
 		nomeLbl.setText( nome );
 
 		// TODO para cada aluguer do utente é preciso mostrar na tabela
-		for( int i = 0; i < 0; i++ )
-			mostrarALuguer( null );
+		ArrayList<Aluguer> alugueres = utenteSel.getAlugueres();
+		System.out.println(alugueres.size()+ "s");
+		for( int i = 0; i < alugueres.size() ; i++ ) {
+			System.out.println(alugueres.get(i));
+			mostrarALuguer( alugueres.get(i));
+		}
 	}
 
 	/** método chamado quando o utilizado seleciona um utente na lista
 	 * @param user o user name do utente selecionado
 	 */
 	protected void selecionarUtente(String user) {
-		// TODO atualizar o utente selecionado
-		utenteSel = null;
+		// TODO  Feito atualizar o utente selecionado
+		
+		HashMap<String, Utente> utenteMap = central.getUtenteMap();	
+		utenteSel = utenteMap.get(user);
 	}
 
 	/** método chamado quando o utilizador
@@ -216,11 +222,13 @@ public class JanelaPrincipal extends JFrame {
 	 */
 	private void mostrarALuguer(Aluguer a) {
 		// TODO preencher as variáveis com os dados corretos
-		String dataInicio = getDataHora( null /* inicio do aluguer */ );
-		String dataFim = getDataHora( null /* fim do aluguer */ );
-		int distancia = 0;
-		float custo = 0;
-		String codigoTrotinete = "Código";
+		System.out.println("id"+a.getInicio());
+		System.out.println("id"+a.getFim());
+		String dataInicio = getDataHora( a.getInicio() /* inicio do aluguer */ );
+		String dataFim = getDataHora( a.getFim() /* fim do aluguer */ );
+		int distancia = a.getDistancia();
+		float custo = a.getCusto();
+		String codigoTrotinete = a.getTrotinete().getCodigo();
 
 		// atualizar a interface
 		Object rowData[] = { dataInicio, dataFim, distancia, custo, codigoTrotinete };
