@@ -89,8 +89,8 @@ public class JanelaUtente extends JDialog {
 	 */
 	protected void terminarAluguer() {
 		// pedir à central para terminar o aluguer
-		// TODO null tem de ser substituido
-		int res = central.terminarAluguer( null );
+		// TODO feito null tem de ser substituido
+		int res = central.terminarAluguer( utente.getAluguer() );
 		if( res != CentralTIU.OK ) {
 			switch( res ) {
 			case CentralTIU.TROTINETE_EM_ANDAMENTO:

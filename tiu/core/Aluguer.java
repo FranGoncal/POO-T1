@@ -42,6 +42,10 @@ public class Aluguer {
 	}
 
 
+	
+	public LocalDateTime getInicio() {
+		return inicio;
+	}
 	/** método responsável por terminar o aluguer
 	 */
 	public void terminar() {

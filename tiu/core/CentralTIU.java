@@ -76,7 +76,11 @@ public class CentralTIU {
 	 * <br>UTENTE_EM_ALUGUER, se o utente já está a alugar outra trotinete
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
+		
+		
 		Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
+		
+		//this.getTrotinete(codigo).setEmCarga(false);
 		utente.comecaAluguer(a1);																		//inicia aluguer
 		this.getTrotinete(codigo).iniciaAluguer(a1);
 	
@@ -92,9 +96,9 @@ public class CentralTIU {
 	 * <br> TROTINETE_EM_ANDAMENTO se a trotinete ainda se encontrar em andamento
 	 */
 	public int terminarAluguer(Aluguer aluguer) {
-		
-		
-		
+		aluguer.utente.terminaAluguer(aluguer);
+		aluguer.trotinete.terminaAluguer();
+		//aluguer.trotinete.setEmCarga(true);
 		
 		
 		

@@ -25,7 +25,7 @@ public class Trotinete {
 	private int velocidade;
 	private int distanciaTotal;
 	private int distanciaAluguer;
-	private int CONSTANTE = 100;
+	private int CONSTANTE = 400;
 
 
 	public Trotinete(String codigo ,int autonomia, int velocidade) {
@@ -46,7 +46,7 @@ public class Trotinete {
 	//		return emAluguer;
 	//	
 	//	}
-	
+
 	public void setAutonomiaRestante(int autonomiaRestante) {													//+- done
 		this.autonomiaRestante = autonomiaRestante;
 	}
@@ -87,7 +87,7 @@ public class Trotinete {
 	 * @param alu o aluguer a começar
 	 */
 	public void iniciaAluguer(Aluguer alu) {
-//		setEmAluguer(true);
+		//		setEmAluguer(true);
 		if (this.aluguer == null)																		//criamos um aluguer no caso de ainda n ter
 			this.aluguer = alu;
 	}
@@ -96,8 +96,9 @@ public class Trotinete {
 	 * 
 	 */
 	public void terminaAluguer( ) {
-
-		setEmAluguer(false);
+		if (this.aluguer != null)																		
+			this.aluguer = null;
+		//		setEmAluguer(false);
 	}
 
 	/** Coloca a trotinete em andamento
@@ -156,13 +157,17 @@ public class Trotinete {
 	public void atualizar() {
 		System.out.println("update ");
 		System.out.println("Trot em andamento " + this.emAndamento);
-		if(this.emAndamento) {
+		if(this.emAndamento && emUso()) {
 			System.out.println("if anda ");
 			this.autonomiaRestante-=this.velocidade;
-			this.distanciaAluguer+=this.velocidade;
-		
+			if (autonomiaRestante>=0)
+				this.distanciaAluguer+=this.velocidade;
+			if (autonomiaRestante<0)
+				autonomiaRestante=0;
+
+
 		}
-		
+
 		if(this.carga) {
 			this.autonomiaRestante+=this.CONSTANTE;
 			if(this.autonomiaRestante>=this.autonomia) {
