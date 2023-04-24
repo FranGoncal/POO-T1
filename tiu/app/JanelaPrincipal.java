@@ -206,14 +206,24 @@ public class JanelaPrincipal extends JFrame {
 		String userName = dados[0];
 		String nome = dados[1];
 
-		// TODO verificar a validade dos dados:
+		// TODO FEITO verificar a validade dos dados:
 		//      user name tem de ser único e não pode ser null
 		//      nome não pode ser vazio ou null
+		if(userName==null||userName==""||nome==null||nome=="")
+		return ;	
+		
+		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
+		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
+		for (String chave : chavesUtentes ) {
+			if(chave==userName)																				//Caso ja exista um utente com o username escrito
+				return;
+		}
 
-		// TODO criar o utente e adicioná-lo ao sistema
-
-		// TODO atualizar a interface com o novo utente
-		atualizarUtente( null );
+		// TODO FEITO criar o utente e adicioná-lo ao sistema
+		Utente NovoUtente = new Utente(userName,nome);
+		central.addUtenteMap(userName,NovoUtente);
+		// TODO FEITO atualizar a interface com o novo utente
+		atualizarUtente( NovoUtente );
 	}
 
 	/** método chamado sempre que é preciso mostrar os dados
@@ -221,9 +231,7 @@ public class JanelaPrincipal extends JFrame {
 	 * @param a o aluguer a mostrar
 	 */
 	private void mostrarALuguer(Aluguer a) {
-		// TODO preencher as variáveis com os dados corretos
-		System.out.println("id"+a.getInicio());
-		System.out.println("id"+a.getFim());
+		// TODO FEITO preencher as variáveis com os dados corretos
 		String dataInicio = getDataHora( a.getInicio() /* inicio do aluguer */ );
 		String dataFim = getDataHora( a.getFim() /* fim do aluguer */ );
 		int distancia = a.getDistancia();

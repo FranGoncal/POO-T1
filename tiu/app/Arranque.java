@@ -64,10 +64,6 @@ public class Arranque {
 			i++;
 		}
 
-
-
-
-
 	}
 
 	/** cria a central e usa a configuração de testes

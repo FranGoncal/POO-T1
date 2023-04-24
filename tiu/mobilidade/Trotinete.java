@@ -156,27 +156,26 @@ public class Trotinete {
 
 	public void atualizar() {
 		if(this.emAndamento && emUso()) {
-			System.out.println("if anda ");
 			this.autonomiaRestante-=this.velocidade;
 			if (autonomiaRestante>=0)
 				this.distanciaAluguer+=this.velocidade;
 			if (autonomiaRestante<0)
 				autonomiaRestante=0;
-
-
 		}
 
 		if(this.carga) {
 			this.autonomiaRestante+=this.CONSTANTE;
 			if(this.autonomiaRestante>=this.autonomia) {
 				this.autonomiaRestante=this.autonomia;
+				System.out.println(this.getCodigo()+" Acabou de carregar");
 				setEmCarga(false);
 			}
 		}
-		if(this.autonomiaRestante == autonomia) {
-			this.carga = false;
-			this.indisponivel = false;
-		}
+//		if(this.autonomiaRestante == autonomia) {									n sei se necessario
+//			this.carga = false;
+//			this.indisponivel = false;
+//		}
+		
 		//		int anterior=0;
 		//		int tempoAluguer=0;
 		//		do{
@@ -200,8 +199,9 @@ public class Trotinete {
 	 * false para retirar da manutenção
 	 */
 	public void setEmManutencao(boolean indisponivel) {
+		if(this.aluguer==null) {
 		this.indisponivel = indisponivel;
-
+		}
 	}
 
 	/** indica se a trotinete está indisponível.
@@ -212,8 +212,8 @@ public class Trotinete {
 	 * @return se a trotinete está indisponível
 	 */
 	public boolean estaIndisponivel() {
-		if (this.autonomiaRestante< 500)
-			this.indisponivel=true;
+		if (this.autonomiaRestante < 500)
+			this.indisponivel = true;
 		return this.indisponivel;
 	}
 
@@ -223,10 +223,12 @@ public class Trotinete {
 	 * false para retirar do carregamento
 	 */
 	public void setEmCarga( boolean carga  ) {
-		this.carga = carga;
-		this.indisponivel = carga;
-		if (carga == true ) {
-			this.emAndamento = false;
+		if(this.aluguer==null) {
+			this.carga = carga;
+			this.indisponivel = carga;
+			if (carga == true ) {
+				this.emAndamento = false;
+			}
 		}
 	}
 }
