@@ -167,7 +167,6 @@ public class Trotinete {
 			this.autonomiaRestante+=this.CONSTANTE;
 			if(this.autonomiaRestante>=this.autonomia) {
 				this.autonomiaRestante=this.autonomia;
-				System.out.println(this.getCodigo()+" Acabou de carregar");
 				setEmCarga(false);
 			}
 		}
