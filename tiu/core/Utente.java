@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Utente {
 
-	private String userName;
+	private String userName;							//Variável unica							
 	private String nome;
 	private Aluguer aluguer;
 	private ArrayList<Aluguer> alugueres = new ArrayList<Aluguer>();
@@ -30,11 +30,11 @@ public class Utente {
 		return nome;
 	}
 
-	public void setNome(String nome) { 					//Alterar
+	public void setNome(String nome) { 					//Alterar o nome caso necessário (não se aplica a este trabalho)
 		this.nome = nome;
 	}
 
-	public ArrayList<Aluguer> getAlugueres() { 			//não sei se necessario
+	public ArrayList<Aluguer> getAlugueres() { 			//Obtem o histórico de alugueres
 		return alugueres;
 	}
 
@@ -42,7 +42,7 @@ public class Utente {
 		alugueres.add(aluguer);
 	}
 
-	public Aluguer getAluguer() {
+	public Aluguer getAluguer() {						//Obter o aluguer atual
 		return aluguer;
 	}
 
@@ -53,17 +53,16 @@ public class Utente {
 	 * @param alu o aluguer começado
 	 */
 	public void comecaAluguer(Aluguer alu) {
-		if (!estaAlugar())
+		if (!estaAlugar())								//No caso de não existir um aluguer atual, começamos um aluguer
 			this.aluguer = alu;
 	}
 
 	/**
 	 * Termina o aluguer atual.
 	 */
-	public void terminaAluguer(Aluguer alu) {
-		if (estaAlugar()) {
+	public void terminaAluguer(Aluguer alu) {			
+		if (estaAlugar()) {								//No caso de existir um aluguer atual, "apagamos" o aluguer atual depois de o guardar dentro do histórico de alugueres
 			this.addAlugueres(alu);
-			System.out.println("Apagou al utente");
 			this.aluguer = null;
 		}
 	}
@@ -73,8 +72,8 @@ public class Utente {
 	 * 
 	 * @return true se está a alugar, false caso contrário
 	 */
-	public boolean estaAlugar() {
-		return this.aluguer != null;
+	public boolean estaAlugar() {						
+		return this.aluguer != null;					//Está a alugar se existir um aluguer, ou seja se for diferente de null
 	}
 
 }

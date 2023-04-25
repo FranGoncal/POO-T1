@@ -63,7 +63,7 @@ public class JanelaTrotinete extends JDialog {
 				mudaParaEmUso();
 
 			// TODO FEITO preencher as variáveis com os dados corretos
-			Duration duracao = (trot.getAluguer().getDuracao(LocalDateTime.now()));
+			Duration duracao = (trot.getAluguer().getDuracao(LocalDateTime.now()));				//utilizar o metodo getDuracao (da classe aluguer)
 			int distanciaPercorrida = trot.getDistanciaAluguer(); 
 			int autonomiaRestante = trot.getAutonomiaRestante();
 

@@ -64,9 +64,9 @@ public class JanelaPrincipal extends JFrame {
 
 		// TODO FEITO para cada utente do sistema colocar a informação na tabela
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
-		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
-		for (String chave : chavesUtentes )
-			atualizarUtente( utenteMap.get(chave) );
+		Set<String> chavesUtentes  = utenteMap.keySet();													//cria um set com as chaves do mapa	
+		for (String chave : chavesUtentes )																	//Percorrer o mapa
+			atualizarUtente( utenteMap.get(chave) );														//Através do utente, atualizar o mapa (atualiza o utente de cada chave respectiva)
 	}
 
 	/** Método que é chamado sempre que é preciso atualizar a 
@@ -174,10 +174,10 @@ public class JanelaPrincipal extends JFrame {
 		userLbl.setText( userName );
 		nomeLbl.setText( nome );
 
-		// TODO para cada aluguer do utente é preciso mostrar na tabela
-		ArrayList<Aluguer> alugueres = utenteSel.getAlugueres();
-		for( int i = 0; i < alugueres.size() ; i++ ) {
-			mostrarALuguer( alugueres.get(i));
+		// TODO FEITO para cada aluguer do utente é preciso mostrar na tabela
+		ArrayList<Aluguer> alugueres = utenteSel.getAlugueres();								//Obtem o arrayList que tem o histórico de alugueres do utente selecionado
+		for( int i = 0; i < alugueres.size() ; i++ ) {											//Percorre este arrayList
+			mostrarALuguer( alugueres.get(i));													//Utiliza o metodo mostrarALuguer para todos os alugueres anteriores do utente selecionado
 		}
 	}
 
@@ -187,8 +187,8 @@ public class JanelaPrincipal extends JFrame {
 	protected void selecionarUtente(String user) {
 		// TODO FEITO atualizar o utente selecionado
 
-		HashMap<String, Utente> utenteMap = central.getUtenteMap();	
-		utenteSel = utenteMap.get(user);
+		HashMap<String, Utente> utenteMap = central.getUtenteMap();								//Obtem o mapa de utentes
+		utenteSel = utenteMap.get(user);														//Através da "chave" userName do mapa obtem o utilizador 
 	}
 
 	/** método chamado quando o utilizador
@@ -206,21 +206,21 @@ public class JanelaPrincipal extends JFrame {
 		// TODO FEITO verificar a validade dos dados:
 		//      user name tem de ser único e não pode ser null
 		//      nome não pode ser vazio ou null
-		if(userName.equals(null)||userName.equals("")||nome.equals(null)||nome.equals("")) {
+		if(userName.equals(null)||userName.equals("")||nome.equals(null)||nome.equals("")) {				//No caso de algum parametro ser inválido não adiciona um novo utente à lista
 			return ;
 		}
 
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
-		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
-		for (String chave : chavesUtentes) {
-			if(chave.equals(userName)) {	//Caso ja exista um utente com o username escrito
-				return;
+		Set<String> chavesUtentes  = utenteMap.keySet();													//cria um set com as chaves do mapa	
+		for (String chave : chavesUtentes) {																//Percorre as chaves do mapa
+			if(chave.equals(userName)) {																	//Caso ja exista um utente com o mesmo username não adiciona um novo utente
+				return;			
 			}
 		}
 
 		// TODO FEITO criar o utente e adicioná-lo ao sistema
-		Utente NovoUtente = new Utente(userName,nome);
-		central.addUtenteMap(userName,NovoUtente);
+		Utente NovoUtente = new Utente(userName,nome);														//Criar um novo utente
+		central.addUtenteMap(userName,NovoUtente);															//Adicionar o novo utente ao mapa de utentes
 		// TODO FEITO atualizar a interface com o novo utente
 		atualizarUtente( NovoUtente );
 	}
@@ -235,7 +235,7 @@ public class JanelaPrincipal extends JFrame {
 		String dataFim = getDataHora( a.getFim() /* fim do aluguer */ );
 		int distancia = a.getDistancia();
 		float custo = a.getCusto();
-		String codigoTrotinete = a.getTrotinete().getCodigo();
+		String codigoTrotinete = a.getTrotinete().getCodigo();												//Obter um codigo da trotinete obtida do aluguer do argumento deste metodo
 
 		// atualizar a interface
 		Object rowData[] = { dataInicio, dataFim, distancia, custo, codigoTrotinete };

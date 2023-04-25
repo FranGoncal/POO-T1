@@ -12,8 +12,8 @@ public class CentralTIU {
 
 	// definição das costantes para os vários casos de erro
 
-	private HashMap<String, Trotinete> trotinetesMap = new HashMap<String, Trotinete>();
-	private HashMap<String, Utente> utenteMap = new HashMap<String, Utente>();
+	private HashMap<String, Trotinete> trotinetesMap = new HashMap<String, Trotinete>();	//HashMap que guarda as trotinetes com a respetiva "chave" código que é unico
+	private HashMap<String, Utente> utenteMap = new HashMap<String, Utente>();				//HashMap que guarda os utentes com a respetiva "chave" userName que é unico
 
 	public static final int OK = 0;
 	public static final int TROTINETE_DESCONHECIDA = 1;
@@ -27,33 +27,30 @@ public class CentralTIU {
 		this.trotinetesMap = new HashMap<String, Trotinete>();
 		this.utenteMap = new HashMap<String, Utente>();
 	}
-	//	public CentralTIU(HashMap<String, Trotinete> trotinetesMap, HashMap<String, Utente> utenteMap) {
-	//		this.trotinetesMap = trotinetesMap;
-	//		this.utenteMap = utenteMap;
-	//	}
 
-	public void addTrotinetesMap(String codigo, Trotinete t) {
-		trotinetesMap.put(codigo, t);
+	public void addTrotinetesMap(String codigo, Trotinete t) {								//Adiciona ao HashMap uma trotinete com o respetivo código
+		if(codigo.equals(t.getCodigo()))													//Confirma que o codigo chave do HashMap e o da trotinete são iguais
+			trotinetesMap.put(codigo, t);															
 	}
 
-	public void addUtenteMap(String username, Utente u) {
-		utenteMap.put(username, u);
+	public void addUtenteMap(String username, Utente u) {									//Adiciona ao HashMap um utente com o respetivo username
+		if(username.equals(u.getUserName()))												//Confirma que o userName chave do HashMap e o do utente são iguais
+			utenteMap.put(username, u);
 	}
 
-	public Trotinete getTrotinete(String codigo) {
+	public Trotinete getTrotinete(String codigo) {											//Obtem a trotinete do mapa cujo codigo seja o do argumento
 		return this.trotinetesMap.get(codigo);
 	}
 
-	public Utente getUtente(String username) {
+	public Utente getUtente(String username) {												//Obtem o utente do mapa cujo userName seja o do argumento
 		return this.utenteMap.get(username);
 	}
 
-
-	public HashMap<String, Trotinete> getTrotinetesMap() {
+	public HashMap<String, Trotinete> getTrotinetesMap() {									//Obtem o mapa das trotinetes
 		return trotinetesMap;
 	}
 
-	public HashMap<String, Utente> getUtenteMap() {
+	public HashMap<String, Utente> getUtenteMap() {											//Obtem o mapa dos utentes
 		return utenteMap;
 	}
 
@@ -69,23 +66,23 @@ public class CentralTIU {
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
 		try {
-			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
+			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e a respectiva trotinete
 
-			if(this.getTrotinete(codigo).emUso())
-				return TROTINETE_EM_USO;
-			if(this.getTrotinete(codigo).emCarga())
-				return TROTINETE_EM_CARGA;
-			if(this.getTrotinete(codigo).estaIndisponivel())
-				return TROTINETE_INDISPONIVEL;
-			if(utente.estaAlugar()) 
+			if(this.getTrotinete(codigo).emUso())															//Caso a trotinete esteja em uso
+				return TROTINETE_EM_USO;																		
+			if(this.getTrotinete(codigo).emCarga())															//Caso esteja em carga
+				return TROTINETE_EM_CARGA;	
+			if(this.getTrotinete(codigo).estaIndisponivel())												//Caso esteja em manutenção
+				return TROTINETE_INDISPONIVEL;					
+			if(utente.estaAlugar()) 																		//Caso esteja em aluguer
 				return UTENTE_EM_ALUGUER;
 
-			utente.comecaAluguer(a1);																		//inicia aluguer
-			this.getTrotinete(codigo).iniciaAluguer(a1);
+			utente.comecaAluguer(a1);																		//Caso contrário inicia aluguer
+			this.getTrotinete(codigo).iniciaAluguer(a1);													
 			return OK;
 		}
-		catch(Exception e) {
-			return TROTINETE_DESCONHECIDA;
+		catch(Exception e) {																				//Se der erro ao criar o aluguer é porque o codigo do argumento não esta associado a nenhuma trotinete
+			return TROTINETE_DESCONHECIDA;					
 		}
 	}
 
@@ -94,11 +91,11 @@ public class CentralTIU {
 	 * @return OK, se correu tudo bem
 	 * <br> TROTINETE_EM_ANDAMENTO se a trotinete ainda se encontrar em andamento
 	 */
-	public int terminarAluguer(Aluguer aluguer) {
-		if(aluguer.trotinete.emAndamento())
+	public int terminarAluguer(Aluguer aluguer) {															
+		if(aluguer.trotinete.emAndamento())																	//Confirma se está em andamento, se tiver não termina o aluguer
 			return TROTINETE_EM_ANDAMENTO;
 
-		aluguer.terminar();
+		aluguer.terminar();																					//Se não tiver em andamento termina o aluguer
 		return OK;
 	}	
 }
