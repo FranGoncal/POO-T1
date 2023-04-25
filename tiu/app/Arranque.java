@@ -56,33 +56,37 @@ public class Arranque {
 		CentralTIU central = new CentralTIU(); //trotinetesMap,utentesMap
 
 		// TODO FEITO criar os utentes
-		Utente fsergio = new Utente("fsergio@ipcb.pt","Sérgio Barbosa");									//Criar utente
-		central.addUtenteMap("fsergio@ipcb.pt", fsergio);													//Adicionar ao mapa de utentes
-		Utente jojo89 = new Utente("jojo89@g.com","João José Silva");										//Criar utente
-		central.addUtenteMap("jojo89@g.com",jojo89);														//Adicionar ao mapa de utentes
-		Utente codeguru = new Utente("codeguru@guru.com ","Harry Hacker");									//Criar utente
-		central.addUtenteMap("codeguru@guru.com ",codeguru);												//Adicionar ao mapa de utentes
-		Utente Luis = new Utente("luis@ipcbcampus.pt","Luis Santos");										//Criar utente
-		central.addUtenteMap("luis@ipcbcampus.pt",Luis);													//Adicionar ao mapa de utentes
-		Utente Francisco = new Utente("francisco@ipcbcampus.pt","Francisco Gomçalves");						//Criar utente
-		central.addUtenteMap("francisco@ipcbcampus.pt",Francisco);											//Adicionar ao mapa de utentes	
-
+		createUtente("fsergio@ipcb.pt","Sérgio Barbosa", central);
+		createUtente("jojo89@g.com","João José Silva", central);
+		createUtente("codeguru@guru.com ","Harry Hacker", central);
+		createUtente("luis@ipcbcampus.pt","Luis Santos", central);
+		createUtente("francisco@ipcbcampus.pt","Francisco Gonçalves", central);
+	
+		
 		// TODO FEITO criar as trotinetes
-		Trotinete PooTr1 = new Trotinete("PooTr1",20000, 5);												//Criar trotinete
-		central.addTrotinetesMap("PooTr1", PooTr1);															//Adicionar ao mapa de trotinetes
-		Trotinete PooTr2 = new Trotinete("PooTr2",20000, 5);												//Criar trotinete
-		central.addTrotinetesMap("PooTr2", PooTr2);															//Adicionar ao mapa de trotinetes
-		Trotinete PooGO = new Trotinete("PooGO",30000, 6);													//Criar trotinete
-		central.addTrotinetesMap("PooGO", PooGO);															//Adicionar ao mapa de trotinetes
-		Trotinete Poo20 = new Trotinete("Poo20",30000, 7);													//Criar trotinete
-		central.addTrotinetesMap("Poo20", Poo20);															//Adicionar ao mapa de trotinetes
+		Trotinete PooTr1 = createTrotinete("PooTr1",20000, 5, central);
+		Trotinete PooTr2 =createTrotinete("PooTr2",20000, 5, central);
+		Trotinete PooGO = createTrotinete("PooGO",30000, 6, central);
+		Trotinete Poo20 = createTrotinete("Poo20",30000, 7, central);
+		
 
 		// TODO FEITO configurar as autonomias restantes para as trotinetes
 		PooTr1.setAutonomiaRestante(400);
 		PooTr2.setAutonomiaRestante(20000);
 		PooGO.setAutonomiaRestante(8000);
 		Poo20.setAutonomiaRestante(30000);
-
 		return central;
+	}
+	
+	
+	public static void createUtente(String username,String name, CentralTIU central) {
+		Utente utente = new Utente(username, name);											//Criar utente
+		central.addUtenteMap(username, utente);												//Adicionar ao mapa de utentes usando o username como "chave" unica
+	}
+	
+	public static Trotinete createTrotinete(String codigo ,int autonomia, int velocidade, CentralTIU central) {
+		Trotinete trotinete = new Trotinete(codigo, autonomia, velocidade);					//Criar trotinete
+		central.addTrotinetesMap(codigo, trotinete);										//Adicionar ao mapa de trotinetes usando o codigo como "chave" unica
+		return trotinete;
 	}
 }

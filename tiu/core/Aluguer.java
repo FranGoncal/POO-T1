@@ -20,8 +20,11 @@ public class Aluguer {
 	float custo;
 	int distancia;
 
-	float taxaDesbloqueio = 0.5f;									//Constante taxa de desbloqueio adicionada a todos os desbloqueios
+	public static final float TAXA_DE_DESBLOQUEIO = 0.5f;									//Constante taxa de desbloqueio adicionada a todos os desbloqueios
+	public static final float PRECO_POR_MINUTO = 0.15f;										//Constante preço por minuto
+	public static final int SEGS_POR_MINUTO = 60;
 
+	
 	public Aluguer( Utente utente,Trotinete trotinete) {
 
 		this.inicio = LocalDateTime.now();
@@ -80,10 +83,10 @@ public class Aluguer {
 	public void setCusto() {
 		duracao = this.getDuracao(LocalDateTime.now());				//Obtem a duração atual do aluguer
 		double tempo =duracao.toSeconds();							//Transforma a duração em segundos
-		double divisor = tempo/60;									//Quantos minutos passaram
+		double divisor = tempo/SEGS_POR_MINUTO;									//Quantos minutos passaram
 		divisor =  Math.ceil(divisor);								//Arredonda para cima sendo este o numero de minutos que seram pagos
-		custo = taxaDesbloqueio;									//Adiciona a taxa de debloqueio ao custo
-		custo += divisor*0.15;										//Adiciona o preco por minuto
+		custo = TAXA_DE_DESBLOQUEIO;									//Adiciona a taxa de debloqueio ao custo
+		custo += divisor*PRECO_POR_MINUTO;										//Adiciona o preco por minuto
 	}
 
 	/** retorna a distância percorrida durante o aluguer

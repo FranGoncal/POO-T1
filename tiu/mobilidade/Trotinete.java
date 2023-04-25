@@ -26,7 +26,7 @@ public class Trotinete {
 	private int distanciaAluguer;
 
 
-	private int carregador = 400;										//Constante de carregamento
+	public static final int CARREGADOR = 400;										//Constante de carregamento
 
 
 	public Trotinete(String codigo ,int autonomia, int velocidade) {
@@ -155,7 +155,7 @@ public class Trotinete {
 
 
 		if(this.carga) {													//Caso esteja em carga
-			this.autonomiaRestante+=this.carregador;							//Adicionamos à autonomia restante a constante carregador
+			this.autonomiaRestante+=CARREGADOR;							//Adicionamos à autonomia restante a constante carregador
 			if(this.autonomiaRestante>=this.autonomia) {						//Caso a autonomia exceda a autonomia maxima
 				this.autonomiaRestante=this.autonomia;								//Definimos a autonomia restante como a maxima
 				setEmCarga(false);													//E tiramos a trotinete do seu estado em carga
