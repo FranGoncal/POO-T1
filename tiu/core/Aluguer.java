@@ -21,7 +21,7 @@ public class Aluguer {
 	float custo;
 	int distancia;
 
-	float PrecoInicial = 0.5f;
+	float taxaDesbloqueio = 0.5f;
 
 	public Aluguer( Utente utente,Trotinete trotinete) {
 
@@ -31,25 +31,25 @@ public class Aluguer {
 		this.utente = utente;
 		this.distancia = 0;
 		this.duracao = null;
-		this.custo=PrecoInicial;
+		this.custo=taxaDesbloqueio;
 	}
-	
+
 	public Aluguer( Trotinete trotinete, Utente utente) {			//TEMPORARIO!!!!!!!  usado nos testes
 		this.inicio =  LocalDateTime.now();
 		this.trotinete = trotinete;									//trotinete cujo codigo é codigo
 		this.utente = utente;
 		this.distancia = 0;
-		this.custo=PrecoInicial;
+		this.custo=taxaDesbloqueio;
 	}
 
 	public Trotinete getTrotinete() {
 		return trotinete;
 	}
-	
+
 	public LocalDateTime getInicio() {
 		return inicio;
 	}
-	
+
 	public LocalDateTime getFim() {
 		return fim;
 	}
@@ -57,10 +57,13 @@ public class Aluguer {
 	 */
 	public void terminar() {
 		this.fim=LocalDateTime.now();
+		getDuracao(fim);
+		setCusto();
+		setDistancia();
 		utente.terminaAluguer(this);
 		trotinete.terminaAluguer();
-		getDuracao(fim);
-		getCusto();
+
+
 	}
 
 	/** Indica a duração do aluguer. Se o aluguer já
@@ -80,16 +83,19 @@ public class Aluguer {
 	 * senão representa o custo até ao momento
 	 * @return o custo atual do aluguer
 	 */
+
 	public float getCusto() {
+		return custo;
+	}
+
+	public void setCusto() {
 		//fazer a diferença em segundos das duracoes
 		duracao = this.getDuracao(LocalDateTime.now());
 		double tempo =duracao.toSeconds();
 		double divisor = tempo/60;
 		divisor =  Math.ceil(divisor);
-		custo = PrecoInicial;
+		custo = taxaDesbloqueio;
 		custo += divisor*0.15;
-		
-		return custo;
 	}
 
 	/** retorna a distância percorrida durante o aluguer
@@ -98,6 +104,11 @@ public class Aluguer {
 	 * @return a distância percorrida durante o aluguer
 	 */
 	public int getDistancia() {
-		return trotinete.getDistanciaAluguer();
+		return distancia;
 	}
+	public void setDistancia() {
+		this.distancia = trotinete.getDistanciaAluguer();
+	}
+
+
 }

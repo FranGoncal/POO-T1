@@ -1,7 +1,6 @@
 package tiu.core;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import tiu.mobilidade.Trotinete;
 
@@ -12,10 +11,11 @@ import tiu.mobilidade.Trotinete;
 public class CentralTIU {
 
 	// definição das costantes para os vários casos de erro
-	public static final int OK = 0;
+
 	private HashMap<String, Trotinete> trotinetesMap = new HashMap<String, Trotinete>();
 	private HashMap<String, Utente> utenteMap = new HashMap<String, Utente>();
 
+	public static final int OK = 0;
 	public static final int TROTINETE_DESCONHECIDA = 1;
 	public static final int TROTINETE_EM_USO = TROTINETE_DESCONHECIDA + 1;
 	public static final int TROTINETE_EM_ANDAMENTO = TROTINETE_EM_USO + 1;
@@ -35,37 +35,26 @@ public class CentralTIU {
 	public void addTrotinetesMap(String codigo, Trotinete t) {
 		trotinetesMap.put(codigo, t);
 	}
-	
+
 	public void addUtenteMap(String username, Utente u) {
 		utenteMap.put(username, u);
 	}
-	
+
 	public Trotinete getTrotinete(String codigo) {
 		return this.trotinetesMap.get(codigo);
 	}
-	
+
 	public Utente getUtente(String username) {
 		return this.utenteMap.get(username);
 	}
-	
-//	public Trotinete getCodigo(String t) {
-//		return this.trotinetesMap.get(t);
-//	}
+
 
 	public HashMap<String, Trotinete> getTrotinetesMap() {
 		return trotinetesMap;
 	}
 
-	public void setTrotinetesMap(HashMap<String, Trotinete> trotinetesMap) {
-		this.trotinetesMap = trotinetesMap;
-	}
-
 	public HashMap<String, Utente> getUtenteMap() {
 		return utenteMap;
-	}
-
-	public void setUtenteMap(HashMap<String, Utente> utenteMap) {
-		this.utenteMap = utenteMap;
 	}
 
 	/** Cria um novo aluguer para um cliente
@@ -81,7 +70,7 @@ public class CentralTIU {
 	public int fazAluguer(Utente utente, String codigo) {
 		try {
 			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
-			
+
 			if(this.getTrotinete(codigo).emUso())
 				return TROTINETE_EM_USO;
 			if(this.getTrotinete(codigo).emCarga())
@@ -90,7 +79,7 @@ public class CentralTIU {
 				return TROTINETE_INDISPONIVEL;
 			if(utente.estaAlugar()) 
 				return UTENTE_EM_ALUGUER;
-			
+
 			utente.comecaAluguer(a1);																		//inicia aluguer
 			this.getTrotinete(codigo).iniciaAluguer(a1);
 			return OK;
@@ -108,7 +97,7 @@ public class CentralTIU {
 	public int terminarAluguer(Aluguer aluguer) {
 		if(aluguer.trotinete.emAndamento())
 			return TROTINETE_EM_ANDAMENTO;
-		
+
 		aluguer.terminar();
 		return OK;
 	}	

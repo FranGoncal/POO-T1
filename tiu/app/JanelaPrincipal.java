@@ -96,7 +96,7 @@ public class JanelaPrincipal extends JFrame {
 	private void atualizarEmUso(Trotinete t ) {
 		// TODO FEITO preencher as variáveis com os dados corretos
 		String codigo = t.getCodigo();
-		int autonomia = t.getAutonomia();
+		int autonomia = t.getAutonomiaRestante();
 		int velocidade = t.getVelocidade();
 		Aluguer alu = t.getAluguer();
 		LocalDateTime inicio = alu.getInicio();
@@ -118,7 +118,7 @@ public class JanelaPrincipal extends JFrame {
 	private void atualizarInativa(Trotinete t) {
 		// TODO FEITO preencher as variáveis com os dados corretos
 		String cod = t.getCodigo();
-		int autonomia = t.getAutonomia();
+		int autonomia = t.getAutonomiaRestante();
 		int velocidade = t.getVelocidade();
 
 		// atualizar a interface
@@ -209,7 +209,7 @@ public class JanelaPrincipal extends JFrame {
 		if(userName.equals(null)||userName.equals("")||nome.equals(null)||nome.equals("")) {
 			return ;
 		}
-				
+
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
 		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
 		for (String chave : chavesUtentes) {

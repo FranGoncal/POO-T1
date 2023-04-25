@@ -15,7 +15,7 @@ import tiu.core.*;
 public class Trotinete {
 	private String codigo;
 	private Aluguer aluguer;
-	private boolean emAluguer;											//TODO seguir variável para eliminar
+
 	private boolean indisponivel;										//n sei se necessario
 	private boolean emAndamento;
 	private boolean carga;												//n sei se necessario
@@ -25,12 +25,13 @@ public class Trotinete {
 	private int velocidade;
 	private int distanciaTotal;
 	private int distanciaAluguer;
-	private int CONSTANTE = 400;
+
+
+	private int carregador = 400;
 
 
 	public Trotinete(String codigo ,int autonomia, int velocidade) {
-		this.codigo = codigo;									//TODO Eliminar codigo em todos os sitios
-		this.emAluguer = false;
+		this.codigo = codigo;									
 		this.aluguer = null;									//Trotinete inicia sem aluguer associado
 		this.indisponivel = false;
 		this.emAndamento = false;
@@ -41,42 +42,42 @@ public class Trotinete {
 		this.autonomiaRestante = autonomia;
 	}
 
+
+	public Aluguer getAluguer() {
+		return aluguer;
+	}
+
+	public void setAluguer(Aluguer aluguer) {
+		this.aluguer = aluguer;
+	}
 	public void setAutonomiaRestante(int autonomiaRestante) {													//+- done
 		this.autonomiaRestante = autonomiaRestante;
 	}
-	
-	public void setEmAluguer(boolean emAluguer) {													//+- done
-		this.emAluguer = emAluguer;
-	}
-	
+
 	public int getAutonomiaRestante() {																//+- done
 		return this.autonomiaRestante;
 	}
-	
+
 	public int getDistanciaTotal() {																//+- done
 		return distanciaTotal;
 	}
-	
+
 	public void setDistanciaTotal(int distanciaTotal) {												//+- done
 		this.distanciaTotal += distanciaAluguer;													//Usar apos terminar aluguer
 	}
-	
+
 	public int getDistanciaAluguer() {
 		return distanciaAluguer;
 	}
-	
+
 	public String getCodigo() {																		//+- done
 		return codigo;
 	}
-	
-	public ArrayList<Aluguer> getAlugueres() {
-		return alugueres;
-	}
-	
+
 	public int getAutonomia() {																		//+- done
 		return autonomia;
 	}
-	
+
 	public int getVelocidade() {																	//+- done
 		return velocidade;
 	}
@@ -93,8 +94,12 @@ public class Trotinete {
 	 * 
 	 */
 	public void terminaAluguer( ) {
-		if (this.aluguer != null)																		
+		if (this.aluguer != null) {
+			//			alugueres.add(aluguer);
+			System.out.println("Apagou al trot");
 			this.aluguer = null;
+			this.distanciaAluguer=0;
+		}
 	}
 
 	/** Coloca a trotinete em andamento
@@ -128,13 +133,6 @@ public class Trotinete {
 			return true;
 	}
 
-	public Aluguer getAluguer() {
-		return aluguer;
-	}
-
-	public void setAluguer(Aluguer aluguer) {
-		this.aluguer = aluguer;
-	}
 
 	/** indica se a trotinete está em carga
 	 * @return se a trotinete está em carga
@@ -148,16 +146,23 @@ public class Trotinete {
 	 * simulando assim o movimento ou carga da mesma
 	 */
 	public void atualizar() {
-		if(this.emAndamento && emUso()) {
+		if(this.emAndamento && emUso() && autonomiaRestante!=0) {
+
 			this.autonomiaRestante-=this.velocidade;
 			if (autonomiaRestante>=0)
 				this.distanciaAluguer+=this.velocidade;
-			if (autonomiaRestante<0)
+			if (autonomiaRestante<0) {									//pode ser else
+				this.distanciaAluguer+=this.velocidade+autonomiaRestante;
 				autonomiaRestante=0;
+			}
+			this.aluguer.setDistancia();
 		}
+		if(emUso())
+			this.aluguer.setCusto();
+
 
 		if(this.carga) {
-			this.autonomiaRestante+=this.CONSTANTE;
+			this.autonomiaRestante+=this.carregador;
 			if(this.autonomiaRestante>=this.autonomia) {
 				this.autonomiaRestante=this.autonomia;
 				setEmCarga(false);

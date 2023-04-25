@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Utente {
 
-	private String userName; 										// TODO Deviamos eliminar esta var Tem de ser unico no sistema
+	private String userName;
 	private String nome;
 	private Aluguer aluguer;
 	private ArrayList<Aluguer> alugueres = new ArrayList<Aluguer>();
@@ -30,11 +30,11 @@ public class Utente {
 		return nome;
 	}
 
-	public void setNome(String nome) { 					// não é necessário neste trabalho
+	public void setNome(String nome) { 					//Alterar
 		this.nome = nome;
 	}
 
-	public ArrayList<Aluguer> getAlugueres() { 			// não sei se necessario
+	public ArrayList<Aluguer> getAlugueres() { 			//não sei se necessario
 		return alugueres;
 	}
 
@@ -63,6 +63,7 @@ public class Utente {
 	public void terminaAluguer(Aluguer alu) {
 		if (estaAlugar()) {
 			this.addAlugueres(alu);
+			System.out.println("Apagou al utente");
 			this.aluguer = null;
 		}
 	}
@@ -76,12 +77,4 @@ public class Utente {
 		return this.aluguer != null;
 	}
 
-	public void setAluguer(Aluguer aluguer) {					//verificar uso
-		this.aluguer = aluguer;
-	}
-
-	public String toString() { 									//Método para testes
-		return "Utente:\nuserName = " + userName + "\nnome = " + nome + "\naluguer = " + aluguer + "\nalugueres = "
-		+ alugueres;
-	}
 }

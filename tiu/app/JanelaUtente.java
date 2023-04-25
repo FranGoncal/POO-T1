@@ -25,13 +25,13 @@ public class JanelaUtente extends JDialog {
 
 	/** número de série da janela */
 	private static final long serialVersionUID = 1L;
-	
+
 	// a central com que a aplicação de utente comunica
 	private CentralTIU central;
-	
+
 	// o utente associado a esta aplicação
 	private Utente utente;
-	
+
 	// elementos gráficos
 	private JLabel tempoLbl, custoLbl;
 	private Timer timer; 
@@ -57,7 +57,7 @@ public class JanelaUtente extends JDialog {
 	protected void desbloquearTrotinete() {
 		// pedir o código da trotinete
 		String codigo = JOptionPane.showInputDialog("Qual o código da trotinete?");
-		
+
 		// pedir para realizar o aluguer 
 		int res = central.fazAluguer( utente, codigo);
 		if( res != CentralTIU.OK ) {
@@ -83,7 +83,7 @@ public class JanelaUtente extends JDialog {
 		// se chegou aqui é porque o aluguer esteve bem
 		mudaParaEmUso();		
 	}
-	
+
 	/** método chamado quando se pressiona o
 	 * botão de terminar o aluguer
 	 */
@@ -101,7 +101,7 @@ public class JanelaUtente extends JDialog {
 			JOptionPane.showMessageDialog( this, "Erro no sistema, tente mais tarde!");
 			return;
 		}		
-		
+
 		// se chegou aqui é porque terminou o aluguer
 		mudaParaInativo();		
 	}
@@ -112,17 +112,17 @@ public class JanelaUtente extends JDialog {
 	protected void atualizarDisplay() {
 		// TODO FEITO preencher as variáveis com os dados corretos
 		Duration duracao = utente.getAluguer().getDuracao(LocalDateTime.now());
-		float custo = utente.getAluguer().getCusto();
-		
+		float custo = utente.getAluguer().getTrotinete().getAluguer().getCusto();//utente.getAluguer().getCusto();
+
 		// atualizar a interface
 		atualizarTempo( duracao.toHoursPart(), duracao.toMinutesPart(), duracao.toSecondsPart() );
 		atualizarCusto( custo );
 	}
-	
+
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
 	// DAQUI EM DIANTE, NÃO É PRECISO ALTERAR NADA
-	
+
 	/** atualiza o tempo na janela
 	 * @param horas as horas
 	 * @param minutos os minutos
@@ -131,14 +131,14 @@ public class JanelaUtente extends JDialog {
 	protected void atualizarTempo( int horas, int minutos, int segundos ) {
 		tempoLbl.setText( String.format("%02d:%02d:%02d", horas, minutos, segundos));
 	}
-	
+
 	/** atualiza o custo na janela
 	 * @param custo o custo em euros
 	 */
 	protected void atualizarCusto( float custo ) {
 		custoLbl.setText( String.format("%.2f€", custo));
 	}
-	
+
 	/** muda a interface para o modo de em uso
 	 */
 	private void mudaParaEmUso() {
@@ -147,7 +147,7 @@ public class JanelaUtente extends JDialog {
 		cl.show( cpane, EM_USO);
 		timer.start();
 	}
-	
+
 	/** muda a interface para o modo inativo
 	 */
 	private void mudaParaInativo() {
@@ -156,20 +156,20 @@ public class JanelaUtente extends JDialog {
 		cl.show( cpane, INATIVO);
 		timer.stop();
 	}
-	
+
 	/** inicializa a interface gráfica
 	 */
 	private void setupInterface() {
 		setSize( 150, 150 );
 		JPanel inativoPanel = setupInterfaceInativo();	
-		
+
 		JPanel emUsoPanel = setupInterfaceEmUSo();
-		
+
 		JPanel cardPanel = new JPanel( new CardLayout() );
 		cardPanel.add( inativoPanel, INATIVO );
 		cardPanel.add( emUsoPanel, EM_USO);
 		setContentPane(cardPanel);
-		
+
 		timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -186,13 +186,13 @@ public class JanelaUtente extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				desbloquearTrotinete( );
-				
+
 			}
 		});
 		inativoPanel.add( btDesbloquear );
 		return inativoPanel;
 	}
-	
+
 	private JPanel setupInterfaceEmUSo() {
 		JPanel emUsoPanel = new JPanel( new GridLayout( 0, 1) );
 		tempoLbl = new JLabel("00:00:00", JLabel.CENTER );
@@ -214,6 +214,6 @@ public class JanelaUtente extends JDialog {
 		return emUsoPanel;
 	}
 
-	
+
 
 }

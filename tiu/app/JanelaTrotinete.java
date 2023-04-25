@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import tiu.core.Aluguer;
 import tiu.mobilidade.Trotinete;
 
 public class JanelaTrotinete extends JDialog {
@@ -192,4 +191,3 @@ public class JanelaTrotinete extends JDialog {
 
 
 }
-

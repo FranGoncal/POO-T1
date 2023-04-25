@@ -16,13 +16,13 @@ public class Arranque {
 
 		// criar a central e fazer o respetivo setup
 		CentralTIU central = setupSistema();
-		
+
 		// criar a janela principal
 		JanelaPrincipal jp = new JanelaPrincipal( central );
 		jp.setLocation( 20, 380 );
 		jp.setVisible( true );
 
-		
+
 		// TODO FEITO criar as janelas dos utentes (criar uma para cada utente)
 		int i=0;
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
