@@ -33,6 +33,7 @@ public class Aluguer {
 		this.duracao = null;
 		this.custo=PrecoInicial;
 	}
+	
 	public Aluguer( Trotinete trotinete, Utente utente) {			//TEMPORARIO!!!!!!!  usado nos testes
 		this.inicio =  LocalDateTime.now();
 		this.trotinete = trotinete;									//trotinete cujo codigo é codigo
@@ -48,6 +49,7 @@ public class Aluguer {
 	public LocalDateTime getInicio() {
 		return inicio;
 	}
+	
 	public LocalDateTime getFim() {
 		return fim;
 	}
@@ -58,10 +60,8 @@ public class Aluguer {
 		utente.terminaAluguer(this);
 		trotinete.terminaAluguer();
 		getDuracao(fim);
-		
 		getCusto();
 	}
-
 
 	/** Indica a duração do aluguer. Se o aluguer já
 	 * tiver terminado, retorna a duração total do aluguer.
@@ -91,13 +91,6 @@ public class Aluguer {
 		
 		return custo;
 	}
-	//	public void setCusto(int tempo) {
-	//		int precoTempo = tempo;
-	//		this.custo=PrecoInicial+precoTempo;
-	//	}
-
-
-
 
 	/** retorna a distância percorrida durante o aluguer
 	 * Se o aluguer ainda estiver a decorrer, retorna a
@@ -106,12 +99,5 @@ public class Aluguer {
 	 */
 	public int getDistancia() {
 		return trotinete.getDistanciaAluguer();
-
 	}
-
-	//	public Trotinete getTrotinete(String codigo) {
-	//		for (Trotinete t : Trotinetes)
-	//		if(trotinete.getCodigo()==codigo)
-	//			return trotinete;
-	//	}
 }

@@ -35,18 +35,22 @@ public class CentralTIU {
 	public void addTrotinetesMap(String codigo, Trotinete t) {
 		trotinetesMap.put(codigo, t);
 	}
+	
 	public void addUtenteMap(String username, Utente u) {
 		utenteMap.put(username, u);
 	}
+	
 	public Trotinete getTrotinete(String codigo) {
 		return this.trotinetesMap.get(codigo);
 	}
+	
 	public Utente getUtente(String username) {
 		return this.utenteMap.get(username);
 	}
-	public Trotinete getCodigo(String t) {
-		return this.trotinetesMap.get(t);
-	}
+	
+//	public Trotinete getCodigo(String t) {
+//		return this.trotinetesMap.get(t);
+//	}
 
 	public HashMap<String, Trotinete> getTrotinetesMap() {
 		return trotinetesMap;
@@ -64,8 +68,6 @@ public class CentralTIU {
 		this.utenteMap = utenteMap;
 	}
 
-
-
 	/** Cria um novo aluguer para um cliente
 	 * @param utente o utente que pretende o aluguer
 	 * @param codigo o código da trotinete que o utente pretende alugar
@@ -77,7 +79,6 @@ public class CentralTIU {
 	 * <br>UTENTE_EM_ALUGUER, se o utente já está a alugar outra trotinete
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
-
 		try {
 			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e o codigo da trotinete
 			
@@ -97,8 +98,6 @@ public class CentralTIU {
 		catch(Exception e) {
 			return TROTINETE_DESCONHECIDA;
 		}
-
-
 	}
 
 	/** Terminar um processo de aluguer
@@ -107,12 +106,10 @@ public class CentralTIU {
 	 * <br> TROTINETE_EM_ANDAMENTO se a trotinete ainda se encontrar em andamento
 	 */
 	public int terminarAluguer(Aluguer aluguer) {
-
 		if(aluguer.trotinete.emAndamento())
 			return TROTINETE_EM_ANDAMENTO;
 		
 		aluguer.terminar();
 		return OK;
-
 	}	
 }

@@ -15,7 +15,7 @@ import tiu.core.*;
 public class Trotinete {
 	private String codigo;
 	private Aluguer aluguer;
-	private boolean emAluguer;
+	private boolean emAluguer;											//TODO seguir variável para eliminar
 	private boolean indisponivel;										//n sei se necessario
 	private boolean emAndamento;
 	private boolean carga;												//n sei se necessario
@@ -29,9 +29,9 @@ public class Trotinete {
 
 
 	public Trotinete(String codigo ,int autonomia, int velocidade) {
-		this.codigo = codigo;
+		this.codigo = codigo;									//TODO Eliminar codigo em todos os sitios
 		this.emAluguer = false;
-		this.aluguer = null;
+		this.aluguer = null;									//Trotinete inicia sem aluguer associado
 		this.indisponivel = false;
 		this.emAndamento = false;
 		this.autonomia = autonomia;
@@ -39,55 +39,52 @@ public class Trotinete {
 		this.distanciaTotal = 0;
 		this.distanciaAluguer = 0;
 		this.autonomiaRestante = autonomia;
-
 	}
-
-	//	public boolean isEmAluguer() {
-	//		return emAluguer;
-	//	
-	//	}
 
 	public void setAutonomiaRestante(int autonomiaRestante) {													//+- done
 		this.autonomiaRestante = autonomiaRestante;
 	}
+	
 	public void setEmAluguer(boolean emAluguer) {													//+- done
 		this.emAluguer = emAluguer;
 	}
+	
 	public int getAutonomiaRestante() {																//+- done
 		return this.autonomiaRestante;
 	}
+	
 	public int getDistanciaTotal() {																//+- done
 		return distanciaTotal;
 	}
+	
 	public void setDistanciaTotal(int distanciaTotal) {												//+- done
 		this.distanciaTotal += distanciaAluguer;													//Usar apos terminar aluguer
 	}
+	
 	public int getDistanciaAluguer() {
 		return distanciaAluguer;
 	}
-	//	public void setDistanciaAluguer(int distanciaAluguer) {											// Meio inutil por enquanto
-	//		this.distanciaAluguer = distanciaAluguer;
-	//	}
+	
 	public String getCodigo() {																		//+- done
 		return codigo;
 	}
+	
 	public ArrayList<Aluguer> getAlugueres() {
 		return alugueres;
 	}
+	
 	public int getAutonomia() {																		//+- done
 		return autonomia;
 	}
+	
 	public int getVelocidade() {																	//+- done
 		return velocidade;
 	}
-
-
 
 	/** inicia um aluguer
 	 * @param alu o aluguer a começar
 	 */
 	public void iniciaAluguer(Aluguer alu) {
-		//		setEmAluguer(true);
 		if (this.aluguer == null)																		//criamos um aluguer no caso de ainda n ter
 			this.aluguer = alu;
 	}
@@ -98,7 +95,6 @@ public class Trotinete {
 	public void terminaAluguer( ) {
 		if (this.aluguer != null)																		
 			this.aluguer = null;
-		//		setEmAluguer(false);
 	}
 
 	/** Coloca a trotinete em andamento
@@ -143,8 +139,6 @@ public class Trotinete {
 	/** indica se a trotinete está em carga
 	 * @return se a trotinete está em carga
 	 */
-
-
 	public boolean emCarga() {
 		return this.carga;
 	}
@@ -153,7 +147,6 @@ public class Trotinete {
 	 * para que a trotinete atualize o seu estado,
 	 * simulando assim o movimento ou carga da mesma
 	 */
-
 	public void atualizar() {
 		if(this.emAndamento && emUso()) {
 			this.autonomiaRestante-=this.velocidade;
@@ -170,26 +163,7 @@ public class Trotinete {
 				setEmCarga(false);
 			}
 		}
-//		if(this.autonomiaRestante == autonomia) {									n sei se necessario
-//			this.carga = false;
-//			this.indisponivel = false;
-//		}
-		
-		//		int anterior=0;
-		//		int tempoAluguer=0;
-		//		do{
-		//			LocalDateTime data = LocalDateTime.now();
-		//			int segundos = data.getSecond();
-		//			if(segundos > anterior || (anterior == 59 && segundos == 0)) {
-		//				tempoAluguer+=1;
-		//				if(emAndamento)
-		//					distanciaAluguer+=velocidade;
-		//				anterior=segundos;
-		//				System.out.println("DistanciaAndar : "+ distanciaAluguer );
-		//				System.out.println("tempoAluguer - "+tempoAluguer+"\n");
-		//			}
-		//		}
-		//		while(emAluguer==true);
+
 	}
 
 
@@ -199,7 +173,7 @@ public class Trotinete {
 	 */
 	public void setEmManutencao(boolean indisponivel) {
 		if(this.aluguer==null) {
-		this.indisponivel = indisponivel;
+			this.indisponivel = indisponivel;
 		}
 	}
 

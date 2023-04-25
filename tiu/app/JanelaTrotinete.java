@@ -43,7 +43,7 @@ public class JanelaTrotinete extends JDialog {
 	 * @param t trotinete simulada pela janela
 	 */
 	public JanelaTrotinete( JFrame owner, Trotinete t ) {
-		// TODO +- feito substituir "CÒDIGO TROTI" pelo valor correto
+		// TODO  FEITO substituir "CÒDIGO TROTI" pelo valor correto
 		super( owner, t.getCodigo() );
 		trot = t;
 		setupInterface( t.getCodigo() );
@@ -63,7 +63,7 @@ public class JanelaTrotinete extends JDialog {
 			if( !emUso )
 				mudaParaEmUso();
 
-			// TODO +- feito preencher as variáveis com os dados corretos
+			// TODO FEITO preencher as variáveis com os dados corretos
 			Duration duracao = (trot.getAluguer().getDuracao(LocalDateTime.now()));
 			int distanciaPercorrida = trot.getDistanciaAluguer(); 
 			int autonomiaRestante = trot.getAutonomiaRestante();
@@ -79,13 +79,13 @@ public class JanelaTrotinete extends JDialog {
 	/** método chamado quando o botão mover/parar é premido
 	 */
 	protected void processarMover() {
-		// TODO se está em andamento tem de parar e mudar o nome do botão
+		// TODO FEITO se está em andamento tem de parar e mudar o nome do botão
 		if( trot.emAndamento() ) {
 			// ...
 			trot.parar();
 			btMover.setText( "Mover" );
 		} else {
-			// TODO senão é porque tem de se colocar em andamento 
+			// TODO FEITO senão é porque tem de se colocar em andamento 
 			// ...
 			trot.mover();
 			btMover.setText( "Parar" );

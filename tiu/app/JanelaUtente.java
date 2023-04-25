@@ -45,7 +45,7 @@ public class JanelaUtente extends JDialog {
 	 * @throws HeadlessException
 	 */
 	public JanelaUtente( JFrame owner, CentralTIU c, Utente u ) throws HeadlessException {
-		// TODO substituir "NOME DO UTILIZADOR" pelo valor correto
+		// TODO FEITO substituir "NOME DO UTILIZADOR" pelo valor correto
 		super( owner, u.getNome() );
 		central = c;
 		utente = u;
@@ -89,7 +89,7 @@ public class JanelaUtente extends JDialog {
 	 */
 	protected void terminarAluguer() {
 		// pedir à central para terminar o aluguer
-		// TODO feito null tem de ser substituido
+		// TODO FEITO null tem de ser substituido
 		int res = central.terminarAluguer( utente.getAluguer());
 		if( res != CentralTIU.OK ) {
 			switch( res ) {
@@ -110,7 +110,7 @@ public class JanelaUtente extends JDialog {
 	 * informação na aplicação (1 vez por segundo)
 	 */
 	protected void atualizarDisplay() {
-		// TODO preencher as variáveis com os dados corretos
+		// TODO FEITO preencher as variáveis com os dados corretos
 		Duration duracao = utente.getAluguer().getDuracao(LocalDateTime.now());
 		float custo = utente.getAluguer().getCusto();
 		

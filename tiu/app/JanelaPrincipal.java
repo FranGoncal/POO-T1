@@ -62,8 +62,7 @@ public class JanelaPrincipal extends JFrame {
 		central = c;
 		setupInterface();	
 
-		// TODO +- feito para cada utente do sistema colocar a informação na tabela
-		//		for( int i = 0; i < 0; i++ )
+		// TODO FEITO para cada utente do sistema colocar a informação na tabela
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
 		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
 		for (String chave : chavesUtentes )
@@ -74,7 +73,7 @@ public class JanelaPrincipal extends JFrame {
 	 * informação na janela
 	 */
 	protected void atualizarInterface() {
-		// TODO +- feito para cada trotinete é preciso ver se está em uso em inativa
+		// TODO FEITO para cada trotinete é preciso ver se está em uso em inativa
 		//      para saber em qual das tabelas colcoar a trotinete
 		HashMap<String, Trotinete> trotineteMap = central.getTrotinetesMap();											//Obter o mapa das trotinetes da central
 		Set<String> chavesTrotinetes= trotineteMap.keySet();
@@ -95,7 +94,7 @@ public class JanelaPrincipal extends JFrame {
 	 * @param t a trotine a acrescentar à tabela das em uso
 	 */
 	private void atualizarEmUso(Trotinete t ) {
-		// TODO +- feito preencher as variáveis com os dados corretos
+		// TODO FEITO preencher as variáveis com os dados corretos
 		String codigo = t.getCodigo();
 		int autonomia = t.getAutonomia();
 		int velocidade = t.getVelocidade();
@@ -117,7 +116,7 @@ public class JanelaPrincipal extends JFrame {
 	 * @param t a trotine a acrescentar à tabela das inativas
 	 */
 	private void atualizarInativa(Trotinete t) {
-		// TODO Feito preencher as variáveis com os dados corretos
+		// TODO FEITO preencher as variáveis com os dados corretos
 		String cod = t.getCodigo();
 		int autonomia = t.getAutonomia();
 		int velocidade = t.getVelocidade();
@@ -152,7 +151,7 @@ public class JanelaPrincipal extends JFrame {
 	 * @param u o utente a ser atualizado
 	 */
 	private void atualizarUtente(Utente u) {
-		// TODO Feito preencher as variáveis com os dados corretos
+		// TODO FEITO preencher as variáveis com os dados corretos
 		String user = u.getUserName();
 		String nome = u.getNome();
 
@@ -166,7 +165,7 @@ public class JanelaPrincipal extends JFrame {
 	 * a informação do utente que está atualmente selecionado
 	 */
 	private void atualizarInfoUtenteSel() {
-		// TODO Feito preencher as variáveis com os dados corretos
+		// TODO FEITO preencher as variáveis com os dados corretos
 		String userName = utenteSel.getUserName();
 		String nome = utenteSel.getNome();
 
@@ -177,9 +176,7 @@ public class JanelaPrincipal extends JFrame {
 
 		// TODO para cada aluguer do utente é preciso mostrar na tabela
 		ArrayList<Aluguer> alugueres = utenteSel.getAlugueres();
-		System.out.println(alugueres.size()+ "s");
 		for( int i = 0; i < alugueres.size() ; i++ ) {
-			System.out.println(alugueres.get(i));
 			mostrarALuguer( alugueres.get(i));
 		}
 	}
@@ -188,8 +185,8 @@ public class JanelaPrincipal extends JFrame {
 	 * @param user o user name do utente selecionado
 	 */
 	protected void selecionarUtente(String user) {
-		// TODO  Feito atualizar o utente selecionado
-		
+		// TODO FEITO atualizar o utente selecionado
+
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();	
 		utenteSel = utenteMap.get(user);
 	}
@@ -209,14 +206,16 @@ public class JanelaPrincipal extends JFrame {
 		// TODO FEITO verificar a validade dos dados:
 		//      user name tem de ser único e não pode ser null
 		//      nome não pode ser vazio ou null
-		if(userName==null||userName==""||nome==null||nome=="")
-		return ;	
-		
+		if(userName.equals(null)||userName.equals("")||nome.equals(null)||nome.equals("")) {
+			return ;
+		}
+				
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
 		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
-		for (String chave : chavesUtentes ) {
-			if(chave==userName)																				//Caso ja exista um utente com o username escrito
+		for (String chave : chavesUtentes) {
+			if(chave.equals(userName)) {	//Caso ja exista um utente com o username escrito
 				return;
+			}
 		}
 
 		// TODO FEITO criar o utente e adicioná-lo ao sistema

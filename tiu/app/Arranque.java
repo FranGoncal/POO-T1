@@ -22,42 +22,25 @@ public class Arranque {
 		jp.setLocation( 20, 380 );
 		jp.setVisible( true );
 
-		// TODO criar as janelas dos utentes (criar uma para cada utente)
-		//		int i=0;
-		//		for( int k=0; k < 1; k++ ) {
-		//			// TODO cuidado com o null, substituir pelo valor correto
-		//			JanelaUtente ju = new JanelaUtente( jp, central, central.getUtente("fsergio@ipcb.pt") );
-		//			ju.setLocation( 20 + i*(ju.getWidth()+10), 20);
-		//			ju.setVisible( true );
-		//			i++;
-		//		}
+		
+		// TODO FEITO criar as janelas dos utentes (criar uma para cada utente)
 		int i=0;
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
 		Set<String> chavesUtentes  = utenteMap.keySet();															//cria um set com as chaves do mapa	
 		for (String chave : chavesUtentes ) {																		//Percorrer as chaves do mapa	
-			//TODO cuidado com o null, substituir pelo valor correto
+			//TODO FEITO cuidado com o null, substituir pelo valor correto
 			JanelaUtente ju = new JanelaUtente( jp, central, utenteMap.get(chave) );						//criar a janela utente
 			ju.setLocation( 20 + i*(ju.getWidth()+10), 20);													//setar a localizção da janela
 			ju.setVisible( true );																			//Janela visivel
 			i++;																							//adiciona a posição da janela
 		}
 
-
-		// TODO criar as janelas das trotinetes (criar uma por cada trotinete)
-		//		i=0;
-		//		for( int k = 0; k < 1; k++ ) {
-		//			// TODO cuidado com o null, substituir pelo valor correto
-		//			JanelaTrotinete jt = new JanelaTrotinete( jp, central.getTrotinete("PooTr1")) ;
-		//			jt.setLocation( 20 + i*(jt.getWidth()+10), 200);
-		//			jt.setVisible( true );
-		//			i++;
-		//		}	
-
+		// TODO FEITO criar as janelas das trotinetes (criar uma por cada trotinete)
 		i=0;
 		HashMap<String, Trotinete> trotineteMap = central.getTrotinetesMap();											//Obter o mapa das trotinetes da central
 		Set<String> chavesTrotinetes= trotineteMap.keySet();
 		for (String chave : chavesTrotinetes ) {
-			// TODO cuidado com o null, substituir pelo valor correto
+			// TODO FEITO cuidado com o null, substituir pelo valor correto
 			JanelaTrotinete jt = new JanelaTrotinete( jp, trotineteMap.get(chave)) ;
 			jt.setLocation( 20 + i*(jt.getWidth()+10), 200);
 			jt.setVisible( true );
@@ -83,9 +66,6 @@ public class Arranque {
 		central.addUtenteMap("luis@ipcbcampus.pt",Luis);
 		Utente Francisco = new Utente("francisco@ipcbcampus.pt","Francisco Gomçalves");
 		central.addUtenteMap("francisco@ipcbcampus.pt",Francisco);
-
-
-
 
 		// TODO FEITO criar as trotinetes
 		Trotinete PooTr1 = new Trotinete("PooTr1",20000, 5);
