@@ -28,7 +28,6 @@ This project adheres to an OOP architecture, designed based on the following **C
 
 - **Java** (or the language you used — replace as needed)
 - Object-Oriented Design Principles
-- Basic I/O operations
 - Data structures
 
 ---
@@ -36,6 +35,7 @@ This project adheres to an OOP architecture, designed based on the following **C
 ## 🛠️ Setup & Running
 
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/FranGoncal/POO-T1
 
