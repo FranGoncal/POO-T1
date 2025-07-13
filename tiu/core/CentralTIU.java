@@ -66,19 +66,19 @@ public class CentralTIU {
 	 */
 	public int fazAluguer(Utente utente, String codigo) {
 		try {
-			Aluguer a1 = new Aluguer(  utente, this.getTrotinete(codigo));									//cria um aluguer entre o utente e a respectiva trotinete
+			Aluguer a1 = new Aluguer(  utente, getTrotinete(codigo));									//cria um aluguer entre o utente e a respectiva trotinete
 
-			if(this.getTrotinete(codigo).emUso())															//Caso a trotinete esteja em uso
+			if(getTrotinete(codigo).emUso())															//Caso a trotinete esteja em uso
 				return TROTINETE_EM_USO;																		
-			if(this.getTrotinete(codigo).emCarga())															//Caso esteja em carga
+			if(getTrotinete(codigo).emCarga())															//Caso esteja em carga
 				return TROTINETE_EM_CARGA;	
-			if(this.getTrotinete(codigo).estaIndisponivel())												//Caso esteja em manutenção
+			if(getTrotinete(codigo).estaIndisponivel())												//Caso esteja em manutenção
 				return TROTINETE_INDISPONIVEL;					
 			if(utente.estaAlugar()) 																		//Caso esteja em aluguer
 				return UTENTE_EM_ALUGUER;
 
 			utente.comecaAluguer(a1);																		//Caso contrário inicia aluguer
-			this.getTrotinete(codigo).iniciaAluguer(a1);													
+			getTrotinete(codigo).iniciaAluguer(a1);													
 			return OK;
 		}
 		catch(Exception e) {																				//Se der erro ao criar o aluguer é porque o codigo do argumento não esta associado a nenhuma trotinete
@@ -94,7 +94,6 @@ public class CentralTIU {
 	public int terminarAluguer(Aluguer aluguer) {															
 		if(aluguer.trotinete.emAndamento())																	//Confirma se está em andamento, se tiver não termina o aluguer
 			return TROTINETE_EM_ANDAMENTO;
-
 		aluguer.terminar();																					//Se não tiver em andamento termina o aluguer
 		return OK;
 	}	

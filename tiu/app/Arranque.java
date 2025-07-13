@@ -27,8 +27,7 @@ public class Arranque {
 		int i=0;
 		HashMap<String, Utente> utenteMap = central.getUtenteMap();											//Obter o mapa dos utentes da central
 		Set<String> chavesUtentes  = utenteMap.keySet();													//Cria um set com as chaves do mapa	
-		for (String chave : chavesUtentes ) {																//Percorre as chaves do mapa	
-			//TODO FEITO cuidado com o null, substituir pelo valor correto
+		for (String chave : chavesUtentes ) {																//Percorre as chaves do mapa
 			JanelaUtente ju = new JanelaUtente( jp, central, utenteMap.get(chave) );						//Criar a janela utente
 			ju.setLocation( 20 + i*(ju.getWidth()+10), 20);													//Definir a localizção da janela
 			ju.setVisible( true );																			//Janela visivel
@@ -39,8 +38,7 @@ public class Arranque {
 		i=0;
 		HashMap<String, Trotinete> trotineteMap = central.getTrotinetesMap();								//Obter o mapa das trotinetes da central
 		Set<String> chavesTrotinetes= trotineteMap.keySet();												//Cria um set com as chaves do mapa
-		for (String chave : chavesTrotinetes ) {															//Percorre as chaves do mapa	
-			// TODO FEITO cuidado com o null, substituir pelo valor correto
+		for (String chave : chavesTrotinetes ) {															//Percorre as chaves do mapa
 			JanelaTrotinete jt = new JanelaTrotinete( jp, trotineteMap.get(chave)) ;						//Criar a janela trotinete
 			jt.setLocation( 20 + i*(jt.getWidth()+10), 200);												//Definir a localizção da janela
 			jt.setVisible( true );																			//Janela visivel
@@ -65,7 +63,7 @@ public class Arranque {
 		
 		// TODO FEITO criar as trotinetes
 		Trotinete PooTr1 = createTrotinete("PooTr1",20000, 5, central);
-		Trotinete PooTr2 =createTrotinete("PooTr2",20000, 5, central);
+		Trotinete PooTr2 = createTrotinete("PooTr2",20000, 5, central);
 		Trotinete PooGO = createTrotinete("PooGO",30000, 6, central);
 		Trotinete Poo20 = createTrotinete("Poo20",30000, 7, central);
 		
